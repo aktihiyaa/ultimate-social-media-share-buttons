@@ -8,7 +8,7 @@ Author URI: https://www.kalyanblogger.com/
 Version: 2.0.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.txt
-Text Domain: social-media-share-buttons
+Text Domain: ultimate-social-media-share-buttons
 */
 
 defined('ABSPATH') || exit;
