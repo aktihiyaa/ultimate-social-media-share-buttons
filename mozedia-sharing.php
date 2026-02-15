@@ -1,6 +1,6 @@
 <?php
 /*
-Plugin Name: Ultimate Social Media Share Buttons
+Plugin Name: Social Media Share Buttons
 Plugin URI: https://kalyanblogger.com/product-category/plugins/
 Description: #1 Fast Loading Social Media Sharing Buttons, no need JavaScript and jQuery.
 Author: Chetan Patel
@@ -8,7 +8,7 @@ Author URI: https://www.kalyanblogger.com/
 Version: 2.0.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.txt
-Text Domain: ultimate-social-media-share-buttons   
+Text Domain: social-media-share-buttons
 */
 
 defined('ABSPATH') || exit;
@@ -36,7 +36,7 @@ function mozedia_smsb_welcome_tab() {
     ?>
     <a class="nav-tab <?php echo ($active_tab == 'inline') ? 'nav-tab-active' : ''; ?>" 
        href="<?php echo admin_url('options-general.php?page=mozedia-social-sharing&tab=inline'); ?>">
-       <?php _e('Inline Sharing', 'ultimate-social-media-share-buttons'); ?>   
+       <?php _e('Inline Sharing', 'social-media-share-buttons'); ?> 
     </a>
     <?php
 }
@@ -58,7 +58,7 @@ function mozedia_smsb_welcome_options_page() {
             ?>
         </form>
     </div>
-    <div>Need help, check this <a href="https://kalyanblogger.com/product-category/plugins/" target="_blank">Guidelines</a> for more details.</div>
+    <div>Need help, check this <a href="https://www.kalyanblogger.com/social-media-share-buttons" target="_blank">Guidelines</a> for more details.</div>
     <?php
 }
 
@@ -70,7 +70,7 @@ function mozedia_cos_tab2() {
     ?>
     <a class="nav-tab <?php echo ($active_tab == 'floating') ? 'nav-tab-active' : ''; ?>" 
        href="<?php echo admin_url('options-general.php?page=mozedia-social-sharing&tab=floating'); ?>">
-       <?php _e('Floating Sharing', 'ultimate-social-media-share-buttons'); ?>   
+       <?php _e('Floating Sharing', 'social-media-share-buttons'); ?> 
     </a>
     <?php
 }
@@ -115,7 +115,6 @@ function mozedia_smsb_settings() {
     add_settings_field("mozedia-social-sharing-global", "Activate", "mozedia_cos_sharing_global", "mozedia-social-sharing", "mozedia_smsb_config_section");
     add_settings_field("mozedia-social-sharing-title", "Share Title", "mozedia_cos_sharing_title", "mozedia-social-sharing", "mozedia_smsb_config_section");
     add_settings_field("mozedia-social-sharing-facebook", "Choose Icons", "mozedia_cos_sharing_post_page_options", "mozedia-social-sharing", "mozedia_smsb_config_section");
-    
     add_settings_field("mozedia-social-sharing-twitter", "Twitter Username", "mozedia_cos_sharing_twitter", "mozedia-social-sharing", "mozedia_smsb_config_section");
     add_settings_field("mozedia-social-sharing-nofollow", "Add Nofollow", "mozedia_cos_sharing_nofollow", "mozedia-social-sharing", "mozedia_smsb_config_section");
     add_settings_field("mozedia-social-sharing-floating", "Activate", "mozedia_cos_sharing_float_global", "mozedia-floating-sharing", "mozedia_float_config_section");
@@ -123,31 +122,29 @@ function mozedia_smsb_settings() {
     add_settings_field("mozedia-social-sharing-top-padding", "Top padding", "mozedia_cos_top_padding", "mozedia-floating-sharing", "mozedia_float_config_section");
     add_settings_field("mozedia-social-sharing-mobile-hide", "Hide on Mobile", "mozedia_cos_mobile_hide", "mozedia-floating-sharing", "mozedia_float_config_section");
     
-    // Sanitization added to all register_setting() calls
-    register_setting("mozedia_smsb_config_section", "mozedia-social-sharing-facebook", 'intval');
-    register_setting("mozedia_smsb_config_section", "mozedia-social-sharing-twitter", 'intval');
-    register_setting("mozedia_smsb_config_section", "mozedia-social-sharing-twitter-name", 'sanitize_text_field');
-    register_setting("mozedia_smsb_config_section", "mozedia-social-sharing-pinterest", 'intval');
-    register_setting("mozedia_smsb_config_section", "mozedia-social-sharing-linkedin", 'intval');
-    register_setting("mozedia_smsb_config_section", "mozedia-social-sharing-whatsapp", 'intval');
-    register_setting("mozedia_smsb_config_section", "mozedia-social-sharing-rel-nofollow", 'intval');
-    register_setting("mozedia_smsb_config_section", "mozedia-social-sharing-custom-label", 'sanitize_text_field');
-    register_setting("mozedia_smsb_config_section", "mozedia-social-sharing-email", 'intval');
-    register_setting("mozedia_smsb_config_section", "mozedia-social-sharing-post-page-global", 'intval');
+    register_setting("mozedia_smsb_config_section", "mozedia-social-sharing-facebook");
+    register_setting("mozedia_smsb_config_section", "mozedia-social-sharing-twitter");
+    register_setting("mozedia_smsb_config_section", "mozedia-social-sharing-twitter-name");
+    register_setting("mozedia_smsb_config_section", "mozedia-social-sharing-pinterest");
+    register_setting("mozedia_smsb_config_section", "mozedia-social-sharing-linkedin");
+    register_setting("mozedia_smsb_config_section", "mozedia-social-sharing-whatsapp");
+    register_setting("mozedia_smsb_config_section", "mozedia-social-sharing-rel-nofollow");
+    register_setting("mozedia_smsb_config_section", "mozedia-social-sharing-custom-label");
+    register_setting("mozedia_smsb_config_section", "mozedia-social-sharing-email");
+    register_setting("mozedia_smsb_config_section", "mozedia-social-sharing-post-page-global");
     
-    register_setting("mozedia_float_config_section", "mozedia-social-sharing-float-facebook", 'intval');
-    register_setting("mozedia_float_config_section", "mozedia-social-sharing-float-twitter", 'intval');
-    register_setting("mozedia_float_config_section", "mozedia-social-sharing-float-pinterest", 'intval');
-    register_setting("mozedia_float_config_section", "mozedia-social-sharing-float-linkedin", 'intval');
-    register_setting("mozedia_float_config_section", "mozedia-social-sharing-float-whatsapp", 'intval');
-    register_setting("mozedia_float_config_section", "mozedia-social-sharing-float-email", 'intval');
-    register_setting("mozedia_float_config_section", "mozedia-social-sharing-top-padding", 'intval');
-    register_setting("mozedia_float_config_section", "mozedia-social-sharing-mobile-hide", 'intval');
-    register_setting("mozedia_float_config_section", "mozedia-social-sharing-float-global", 'intval');
+    register_setting("mozedia_float_config_section", "mozedia-social-sharing-float-facebook");
+    register_setting("mozedia_float_config_section", "mozedia-social-sharing-float-twitter");
+    register_setting("mozedia_float_config_section", "mozedia-social-sharing-float-pinterest");
+    register_setting("mozedia_float_config_section", "mozedia-social-sharing-float-linkedin");
+    register_setting("mozedia_float_config_section", "mozedia-social-sharing-float-whatsapp");
+    register_setting("mozedia_float_config_section", "mozedia-social-sharing-float-email");
+    register_setting("mozedia_float_config_section", "mozedia-social-sharing-top-padding");
+    register_setting("mozedia_float_config_section", "mozedia-social-sharing-mobile-hide");
+    register_setting("mozedia_float_config_section", "mozedia-social-sharing-float-global");
 }
 add_action("admin_init", "mozedia_smsb_settings");
 
-// Rest of your functions remain exactly the same...
 function mozedia_cos_sharing_global() {
     $value = get_option('mozedia-social-sharing-post-page-global');
     ?>
