@@ -123,7 +123,7 @@ function mozedia_smsb_settings() {
     add_settings_field("mozedia-social-sharing-top-padding", "Top padding", "mozedia_cos_top_padding", "mozedia-floating-sharing", "mozedia_float_config_section");
     add_settings_field("mozedia-social-sharing-mobile-hide", "Hide on Mobile", "mozedia_cos_mobile_hide", "mozedia-floating-sharing", "mozedia_float_config_section");
     
-    // ✅ Sanitization added to all register_setting() calls
+    // Sanitization added to all register_setting() calls
     register_setting("mozedia_smsb_config_section", "mozedia-social-sharing-facebook", 'intval');
     register_setting("mozedia_smsb_config_section", "mozedia-social-sharing-twitter", 'intval');
     register_setting("mozedia_smsb_config_section", "mozedia-social-sharing-twitter-name", 'sanitize_text_field');
