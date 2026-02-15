@@ -1,7 +1,7 @@
 <?php
 /*
-Plugin Name: Ultimate Social Media Share Buttons
-Plugin URI: https://kalyanblogger.com/product-category/plugins/
+Plugin Name: Ultimate Social Media Share Buttons 
+Plugin URI: https://www.kalyanblogger.com/
 Description: #1 Fast Loading Social Media Sharing Buttons, no need JavaScript and jQuery.
 Author: Chetan Patel
 Author URI: https://www.kalyanblogger.com/
@@ -35,8 +35,8 @@ function mozedia_smsb_welcome_tab() {
     $active_tab = isset($smsb_active_tab) ? $smsb_active_tab : 'inline';
     ?>
     <a class="nav-tab <?php echo ($active_tab == 'inline') ? 'nav-tab-active' : ''; ?>" 
-       href="<?php echo admin_url('options-general.php?page=mozedia-social-sharing&tab=inline'); ?>">
-       <?php _e('Inline Sharing', 'social-media-share-buttons'); ?> 
+       href="<?php echo esc_url(admin_url('options-general.php?page=mozedia-social-sharing&tab=inline')); ?>">
+       <?php esc_html_e('Inline Sharing', 'social-media-share-buttons'); ?> 
     </a>
     <?php
 }
@@ -69,8 +69,8 @@ function mozedia_cos_tab2() {
     $active_tab = isset($smsb_active_tab) ? $smsb_active_tab : 'inline';
     ?>
     <a class="nav-tab <?php echo ($active_tab == 'floating') ? 'nav-tab-active' : ''; ?>" 
-       href="<?php echo admin_url('options-general.php?page=mozedia-social-sharing&tab=floating'); ?>">
-       <?php _e('Floating Sharing', 'social-media-share-buttons'); ?> 
+       href="<?php echo esc_url(admin_url('options-general.php?page=mozedia-social-sharing&tab=floating')); ?>">
+       <?php esc_html_e('Floating Sharing', 'social-media-share-buttons'); ?> 
     </a>
     <?php
 }
@@ -98,7 +98,7 @@ function mozedia_smsb_another_options_page() {
 
 function SMSB_PAGE() {
     global $smsb_active_tab;
-    $smsb_active_tab = isset($_GET['tab']) ? $_GET['tab'] : 'inline';
+    $smsb_active_tab = isset($_GET['tab']) ? sanitize_text_field(wp_unslash($_GET['tab'])) : 'inline';
     ?>
     <h1 style="font-weight: 500;">Social Share Buttons</h1>
     <h2 class="nav-tab-wrapper">
@@ -109,6 +109,7 @@ function SMSB_PAGE() {
 }
 
 function mozedia_smsb_settings() {
+    // Add settings sections
     add_settings_section("mozedia_smsb_config_section", "", null, "mozedia-social-sharing");
     add_settings_section("mozedia_float_config_section", "", null, "mozedia-floating-sharing");
     
@@ -122,26 +123,27 @@ function mozedia_smsb_settings() {
     add_settings_field("mozedia-social-sharing-top-padding", "Top padding", "mozedia_cos_top_padding", "mozedia-floating-sharing", "mozedia_float_config_section");
     add_settings_field("mozedia-social-sharing-mobile-hide", "Hide on Mobile", "mozedia_cos_mobile_hide", "mozedia-floating-sharing", "mozedia_float_config_section");
     
-    register_setting("mozedia_smsb_config_section", "mozedia-social-sharing-facebook");
-    register_setting("mozedia_smsb_config_section", "mozedia-social-sharing-twitter");
-    register_setting("mozedia_smsb_config_section", "mozedia-social-sharing-twitter-name");
-    register_setting("mozedia_smsb_config_section", "mozedia-social-sharing-pinterest");
-    register_setting("mozedia_smsb_config_section", "mozedia-social-sharing-linkedin");
-    register_setting("mozedia_smsb_config_section", "mozedia-social-sharing-whatsapp");
-    register_setting("mozedia_smsb_config_section", "mozedia-social-sharing-rel-nofollow");
-    register_setting("mozedia_smsb_config_section", "mozedia-social-sharing-custom-label");
-    register_setting("mozedia_smsb_config_section", "mozedia-social-sharing-email");
-    register_setting("mozedia_smsb_config_section", "mozedia-social-sharing-post-page-global");
+    // Register settings with sanitization (FIXED)
+    register_setting("mozedia_smsb_config_section", "mozedia-social-sharing-facebook", 'intval');
+    register_setting("mozedia_smsb_config_section", "mozedia-social-sharing-twitter", 'intval');
+    register_setting("mozedia_smsb_config_section", "mozedia-social-sharing-twitter-name", 'sanitize_text_field');
+    register_setting("mozedia_smsb_config_section", "mozedia-social-sharing-pinterest", 'intval');
+    register_setting("mozedia_smsb_config_section", "mozedia-social-sharing-linkedin", 'intval');
+    register_setting("mozedia_smsb_config_section", "mozedia-social-sharing-whatsapp", 'intval');
+    register_setting("mozedia_smsb_config_section", "mozedia-social-sharing-rel-nofollow", 'intval');
+    register_setting("mozedia_smsb_config_section", "mozedia-social-sharing-custom-label", 'sanitize_text_field');
+    register_setting("mozedia_smsb_config_section", "mozedia-social-sharing-email", 'intval');
+    register_setting("mozedia_smsb_config_section", "mozedia-social-sharing-post-page-global", 'intval');
     
-    register_setting("mozedia_float_config_section", "mozedia-social-sharing-float-facebook");
-    register_setting("mozedia_float_config_section", "mozedia-social-sharing-float-twitter");
-    register_setting("mozedia_float_config_section", "mozedia-social-sharing-float-pinterest");
-    register_setting("mozedia_float_config_section", "mozedia-social-sharing-float-linkedin");
-    register_setting("mozedia_float_config_section", "mozedia-social-sharing-float-whatsapp");
-    register_setting("mozedia_float_config_section", "mozedia-social-sharing-float-email");
-    register_setting("mozedia_float_config_section", "mozedia-social-sharing-top-padding");
-    register_setting("mozedia_float_config_section", "mozedia-social-sharing-mobile-hide");
-    register_setting("mozedia_float_config_section", "mozedia-social-sharing-float-global");
+    register_setting("mozedia_float_config_section", "mozedia-social-sharing-float-facebook", 'intval');
+    register_setting("mozedia_float_config_section", "mozedia-social-sharing-float-twitter", 'intval');
+    register_setting("mozedia_float_config_section", "mozedia-social-sharing-float-pinterest", 'intval');
+    register_setting("mozedia_float_config_section", "mozedia-social-sharing-float-linkedin", 'intval');
+    register_setting("mozedia_float_config_section", "mozedia-social-sharing-float-whatsapp", 'intval');
+    register_setting("mozedia_float_config_section", "mozedia-social-sharing-float-email", 'intval');
+    register_setting("mozedia_float_config_section", "mozedia-social-sharing-top-padding", 'intval');
+    register_setting("mozedia_float_config_section", "mozedia-social-sharing-mobile-hide", 'intval');
+    register_setting("mozedia_float_config_section", "mozedia-social-sharing-float-global", 'intval');
 }
 add_action("admin_init", "mozedia_smsb_settings");
 
@@ -276,25 +278,25 @@ function add_mozedia_social_sharing_buttons($content) {
     
     if (get_option("mozedia-social-sharing-post-page-global") == 1) {
         $content .= '<div class="social-share inline">';
-        $content .= '<span class="sharetitle">' . get_option("mozedia-social-sharing-custom-label") . '</span><ul class="share-list">';
+        $content .= '<span class="sharetitle">' . esc_html(get_option("mozedia-social-sharing-custom-label")) . '</span><ul class="share-list">';
         
         if (get_option("mozedia-social-sharing-facebook") == 1) {
-            $content .= '<li class="icon facebook"><a ' . $rel_nofollow . ' href="' . $facebookURL . '" onclick="'.$openpopup.'" target="_blank"><i class="fa fa-facebook"></i><span>Share on Facebook</span></a></li>';
+            $content .= '<li class="icon facebook"><a ' . $rel_nofollow . ' href="' . esc_url($facebookURL) . '" onclick="' . esc_js($openpopup) . '" target="_blank"><i class="fa fa-facebook"></i><span>Share on Facebook</span></a></li>';
         }
         if (get_option("mozedia-social-sharing-twitter") == 1) {
-            $content .= '<li class="icon twitter"><a ' . $rel_nofollow . ' href="' . $twitterURL . '" onclick="'.$openpopup.'" target="_blank"><i class="fa fa-twitter"></i><span>Tweet on Twitter</span></a></li>';
+            $content .= '<li class="icon twitter"><a ' . $rel_nofollow . ' href="' . esc_url($twitterURL) . '" onclick="' . esc_js($openpopup) . '" target="_blank"><i class="fa fa-twitter"></i><span>Tweet on Twitter</span></a></li>';
         }
         if (get_option("mozedia-social-sharing-linkedin") == 1) {
-            $content .= '<li class="icon linkedin"><a ' . $rel_nofollow . ' href="' . $linkedInURL . '" onclick="'.$openpopup.'" target="_blank"><i class="fa fa-linkedin"></i></a></li>';
+            $content .= '<li class="icon linkedin"><a ' . $rel_nofollow . ' href="' . esc_url($linkedInURL) . '" onclick="' . esc_js($openpopup) . '" target="_blank"><i class="fa fa-linkedin"></i></a></li>';
         }
         if (get_option("mozedia-social-sharing-email") == 1) {
-            $content .= '<li class="icon email"><a ' . $rel_nofollow . ' href="' . $emailURL . '"><i class="fa fa-mail"></i></a></li>';
+            $content .= '<li class="icon email"><a ' . $rel_nofollow . ' href="' . esc_url($emailURL) . '"><i class="fa fa-mail"></i></a></li>';
         }
         if (get_option("mozedia-social-sharing-pinterest") == 1) {
-            $content .= '<li class="icon pinterest"><a ' . $rel_nofollow . ' href="' . $pinterestURL . '" onclick="'.$openpopup.'" target="_blank"><i class="fa fa-pinterest"></i></a></li>';
+            $content .= '<li class="icon pinterest"><a ' . $rel_nofollow . ' href="' . esc_url($pinterestURL) . '" onclick="' . esc_js($openpopup) . '" target="_blank"><i class="fa fa-pinterest"></i></a></li>';
         }
         if (get_option("mozedia-social-sharing-whatsapp") == 1) {
-            $content .= '<li class="icon whatsapp"><a ' . $rel_nofollow . ' href="' . $whatsappURL . '" onclick="'.$openpopup.'" target="_blank"><i class="fa fa-whatsapp"></i></a></li>';
+            $content .= '<li class="icon whatsapp"><a ' . $rel_nofollow . ' href="' . esc_url($whatsappURL) . '" onclick="' . esc_js($openpopup) . '" target="_blank"><i class="fa fa-whatsapp"></i></a></li>';
         }
         $content .= '</ul></div>';
     }
@@ -303,22 +305,22 @@ function add_mozedia_social_sharing_buttons($content) {
         $content .= '<div class="social-share flt"><div class="flt-bar"><input type="checkbox" id="share-toggle"><div class="flt-bar-button"><ul class="float-list">';
         
         if (get_option("mozedia-social-sharing-float-facebook") == 1) {
-            $content .= '<li class="icon facebook"><a ' . $rel_nofollow . ' href="' . $facebookURL . '" onclick="'.$openpopup.'" target="_blank"><i class="fa fa-facebook"></i></a></li>';
+            $content .= '<li class="icon facebook"><a ' . $rel_nofollow . ' href="' . esc_url($facebookURL) . '" onclick="' . esc_js($openpopup) . '" target="_blank"><i class="fa fa-facebook"></i></a></li>';
         }
         if (get_option("mozedia-social-sharing-float-twitter") == 1) {
-            $content .= '<li class="icon twitter"><a ' . $rel_nofollow . ' href="' . $twitterURL . '" onclick="'.$openpopup.'" target="_blank"><i class="fa fa-twitter"></i></a></li>';
+            $content .= '<li class="icon twitter"><a ' . $rel_nofollow . ' href="' . esc_url($twitterURL) . '" onclick="' . esc_js($openpopup) . '" target="_blank"><i class="fa fa-twitter"></i></a></li>';
         }
         if (get_option("mozedia-social-sharing-float-email") == 1) {
-            $content .= '<li class="icon email"><a ' . $rel_nofollow . ' href="' . $emailURL . '"><i class="fa fa-mail"></i></a></li>';
+            $content .= '<li class="icon email"><a ' . $rel_nofollow . ' href="' . esc_url($emailURL) . '"><i class="fa fa-mail"></i></a></li>';
         }
         if (get_option("mozedia-social-sharing-float-linkedin") == 1) {
-            $content .= '<li class="icon linkedin"><a ' . $rel_nofollow . ' href="' . $linkedInURL . '" onclick="'.$openpopup.'" target="_blank"><i class="fa fa-linkedin"></i></a></li>';
+            $content .= '<li class="icon linkedin"><a ' . $rel_nofollow . ' href="' . esc_url($linkedInURL) . '" onclick="' . esc_js($openpopup) . '" target="_blank"><i class="fa fa-linkedin"></i></a></li>';
         }
         if (get_option("mozedia-social-sharing-float-pinterest") == 1) {
-            $content .= '<li class="icon pinterest"><a ' . $rel_nofollow . ' href="' . $pinterestURL . '" onclick="'.$openpopup.'" target="_blank"><i class="fa fa-pinterest"></i></a></li>';
+            $content .= '<li class="icon pinterest"><a ' . $rel_nofollow . ' href="' . esc_url($pinterestURL) . '" onclick="' . esc_js($openpopup) . '" target="_blank"><i class="fa fa-pinterest"></i></a></li>';
         }
         if (get_option("mozedia-social-sharing-float-whatsapp") == 1) {
-            $content .= '<li class="icon whatsapp"><a ' . $rel_nofollow . ' href="' . $whatsappURL . '" onclick="'.$openpopup.'" target="_blank"><i class="fa fa-whatsapp"></i></a></li>';
+            $content .= '<li class="icon whatsapp"><a ' . $rel_nofollow . ' href="' . esc_url($whatsappURL) . '" onclick="' . esc_js($openpopup) . '" target="_blank"><i class="fa fa-whatsapp"></i></a></li>';
         }
         $content .= '</ul><label for="share-toggle" class="share-toggle"></label></div></div></div>';
     }
@@ -338,7 +340,7 @@ function mozedia_smsb_header() {
     if ($top_padding == "") { $top_padding = '150'; }
     if ($mobile_hide == "") { $mobile_hide = '1200'; }
     
-    // Your original CSS - untouched
+    // Aapki original CSS - bilkul waise hi
     echo '<style>
     @font-face{font-family:icons;src:url(/wp-content/plugins/social-media-share-buttons/font/icons.eot);src:url(/wp-content/plugins/social-media-share-buttons/font/icons.eot#iefix) format("embedded-opentype"),url(/wp-content/plugins/social-media-share-buttons/font/icons.woff2) format("woff2"),url(/wp-content/plugins/social-media-share-buttons/font/icons.woff) format("woff"),url(/wp-content/plugins/social-media-share-buttons/font/icons.ttf) format("truetype"),url(/wp-content/plugins/social-media-share-buttons/font/icons.svg) format("svg");font-weight:400;font-style:normal}
     .social-share .icon span,.social-share .icon,.social-share .icon a,.social-share .icon a:hover,.social-share a{text-decoration:none}
@@ -358,7 +360,7 @@ function mozedia_smsb_header() {
     .social-share ul{margin:0}
     .social-share .share-list{display:flex;width:100%;max-width:80%;padding:0;border-spacing:5px 0}
     .social-share .icon a:hover{transition:.3s}
-    .social-share.flt{float:left;position:fixed;top:' . $top_padding . 'px;left:5px}
+    .social-share.flt{float:left;position:fixed;top:' . esc_attr($top_padding) . 'px;left:5px}
     .social-share.hide{left:-999px;transition:.5s;opacity:0}
     .fixed .social-share.hide{left:5px;transition:.5s;opacity:1}
     .social-share.flt .icon{display:block;width:60px}
@@ -398,7 +400,7 @@ function mozedia_smsb_header() {
     .icon.pinterest a:hover{background:#a90007}
     .icon.whatsapp a:hover{background:#15b350}
     .socialicons .icon{display:inline-block;margin:5px;color:#fff;text-align:center}
-    @media only screen and (max-width:' . $mobile_hide . 'px){.social-share.flt{display:none}}
+    @media only screen and (max-width:' . esc_attr($mobile_hide) . 'px){.social-share.flt{display:none}}
     @media only screen and (max-width:768px){.social-share .share-list{max-width:100%}.social-share .sharetitle{display:none}}
     @media only screen and (max-width:500px){.social-share .icon span{display:none}}
     </style>';
