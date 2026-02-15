@@ -36,7 +36,7 @@ function mozedia_smsb_welcome_tab() {
     ?>
     <a class="nav-tab <?php echo ($active_tab == 'inline') ? 'nav-tab-active' : ''; ?>" 
        href="<?php echo admin_url('options-general.php?page=mozedia-social-sharing&tab=inline'); ?>">
-       <?php _e('Inline Sharing', 'ultimate-social-media-share-buttons'); ?>   <!-- ✅ updated -->
+       <?php _e('Inline Sharing', 'ultimate-social-media-share-buttons'); ?>   
     </a>
     <?php
 }
@@ -70,7 +70,7 @@ function mozedia_cos_tab2() {
     ?>
     <a class="nav-tab <?php echo ($active_tab == 'floating') ? 'nav-tab-active' : ''; ?>" 
        href="<?php echo admin_url('options-general.php?page=mozedia-social-sharing&tab=floating'); ?>">
-       <?php _e('Floating Sharing', 'ultimate-social-media-share-buttons'); ?>   <!-- ✅ updated -->
+       <?php _e('Floating Sharing', 'ultimate-social-media-share-buttons'); ?>   
     </a>
     <?php
 }
